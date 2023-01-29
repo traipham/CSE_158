@@ -1,0 +1,27 @@
+Tasks:
+
+1) Read Prediction Explanation:
+First I read through the entire training data, and got a validation and training set, and other data structures that 
+would help me with the prediction. In addition, for the validation set, I also added 10,000
+other (userID, bookID), pairs where user have not read the book based on the entire dataset.
+I then looke dthrough the "pairs_Read" file and built up a list of tuples contain all the pairs, and added 
+new "userIDs" and "itemIDs" when needed. I then used the Tensorflow Bayesian personalized ranking class
+from the Ch.5 workbook, and trained it using the entire training dataset. After training, I iterated through 
+the entire TESTING data and got a prediction for each user, book pair. I added the prediction/score 
+to my data structure in terms of a list of (prediction/score, book) pair(s) for each correspnding (user, book) pair.
+I sorted each list in descending order(highest score at the front, and lowest score at the bottom). Afterward, I started making my
+actual predictions based on that datastructure where for each user, the first half of the list associated will be marked as 
+read(1) and the rest of the list (second half) will be marked as unread(0). I also kept track of the numbers of 
+read and unread, to make sure that there is a 50% split between the predictions. Finally, I iterated through 
+my prediction data structure and added them to the .csv file.
+
+
+2) Category Prediction Explanation:
+
+First I iterated through the entire training data and grabbed the top 10000 words based on
+the number of times the word had appeared in a review for all reviews in the training data.
+After creating the 10000 word dictionary, I got the document frequency (df). 
+Then I built a feature function that would get the tfidf vector for each review in the training data.
+I will then use the list of feature vectors to train a regression model (linear_model.LogisticRegression) 
+using a coefficient value of 0.001. After training, I iterated through the test data and made predictions
+for each review using the model. 
